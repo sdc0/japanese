@@ -4,12 +4,15 @@ body {
 }
 
 .container {
-    display: flex;
     width: calc(100% - 2 * 0.75rem);
     padding-right: 0.75rem;
     padding-left: 0.75rem;
     margin-right: auto;
     margin-left: auto;
+}
+
+.d-flex {
+    display: flex;
 }
 
 .navbar {
