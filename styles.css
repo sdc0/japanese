@@ -1,3 +1,7 @@
+body {
+    padding: 0px;
+}
+
 .navbar {
     list-style-type: none;
     background-color: #333;
