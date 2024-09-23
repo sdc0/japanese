@@ -15,6 +15,14 @@ body {
     display: flex;
 }
 
+.block {
+    display: block;
+}
+
+.center {
+    align-content: center;
+}
+
 .navbar {
     list-style-type: none;
     background-color: #333;
@@ -41,4 +49,12 @@ body {
 
 .navbar-link:hover {
     color: #111;
+}
+
+.char-display {
+    font-size: 200;
+}
+
+.char-input {
+    width: 100%;
 }
