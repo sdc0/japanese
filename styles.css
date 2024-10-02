@@ -15,8 +15,8 @@ body {
     display: flex;
 }
 
-.block {
-    display: block;
+.full-width {
+    width: 100vw;
 }
 
 .center {
@@ -52,7 +52,7 @@ body {
 }
 
 .char-display {
-    font-size: 200;
+    font-size: 100px;
 }
 
 .char-input {
