@@ -13,6 +13,7 @@ body {
 
 .d-flex {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .full-width {
@@ -20,7 +21,7 @@ body {
 }
 
 .center {
-    align-content: center;
+    text-align: center;
 }
 
 .navbar {
@@ -52,9 +53,13 @@ body {
 }
 
 .char-display {
-    font-size: 100px;
+    font-size: 200px;
 }
 
 .char-input {
-    width: 100%;
+    width: 25%;
+}
+
+.char-submit {
+    padding-top: 5%;
 }
