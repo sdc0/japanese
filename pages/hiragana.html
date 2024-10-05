@@ -51,11 +51,10 @@
 
             function submitForm() {
                 if (document.getElementById("hiragana-input").value == romanizations[currentChar]) {
-                    alert("Correct");
+                    console.log("Correct");
                     updateChar();
-                    return;
                 }else {
-                    alert("Incorrect");
+                    console.log("Incorrect");
                 }
             }
         </script>
