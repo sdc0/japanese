@@ -49,7 +49,9 @@
                 document.getElementById("hiragana-display").textContent = hiragana[currentChar];
             }
 
-            function submitForm() {
+            function submitForm(event) {
+                event.preventDefault();
+
                 if (document.getElementById("hiragana-input").value == romanizations[currentChar]) {
                     console.log("Correct");
                     updateChar();
