@@ -45,7 +45,7 @@
             var currentChar;
 
             function updateChar() {
-                currentChar = Math.floor(Math.random() * hiragana.length());
+                currentChar = Math.floor(Math.random() * hiragana.length);
                 document.getElementById("hiragana-display").textContent = hiragana[currentChar];
             }
 
@@ -84,7 +84,7 @@
                 <div class="full-width">
                     <button type="submit" class="char-submit">Check</button>
                 </div>
-                
+
                 <script> 
                     updateChar(); 
                 </script>
