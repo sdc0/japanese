@@ -5,6 +5,61 @@
         <link rel="stylesheet" href="../styles.css">
     </head>
     <body>
+        <script>
+            const hiragana = [
+                "あ", "い", "う", "え", "お", 
+                "か", "き", "く", "け", "こ",
+                "さ", "し", "す", "せ", "そ",
+                "た", "ち", "つ", "て", "と",
+                "な", "に", "ぬ", "ね", "の",
+                "は", "ひ", "ふ", "へ", "ほ",
+                "ま", "み", "む", "め", "も",
+                "ら", "り", "る", "れ", "ろ",
+                "や", "ゆ", "よ", "わ", "を",
+                "が", "ぎ", "ぐ", "げ", "ご",
+                "ざ", "じ", "ず", "ぜ", "ぞ",
+                "だ", "ぢ", "づ", "で", "ど",
+                "ば", "び", "ぶ", "べ", "ぼ",
+                "ぱ", "ぴ", "ぷ", "ぺ", "ぽ",
+                "ん"
+            ];
+
+            const romanizations = [
+                "a", "i", "u", "e", "o",
+                "ka", "ki", "ku", "ke", "ko",
+                "sa", "shi", "su", "se", "so",
+                "ta", "chi", "tsu", "te", "to",
+                "na", "ni", "nu", "ne", "no",
+                "ha", "hi", "fu", "he", "ho",
+                "ma", "mi", "mu", "me", "mo",
+                "ra", "ri", "ru", "re", "ro",
+                "ya", "yu", "yo", "wa", "wo", 
+                "ga", "gi", "gu", "ge", "go",
+                "za", "ji", "zu", "ze", "zo",
+                "da", "ji", "zu", "de", "do",
+                "ba", "bi", "bu", "be", "bo",
+                "pa", "pi", "pu", "pe", "po",
+                "n"
+            ];
+
+            var currentChar;
+
+            function updateChar() {
+                currentChar = Math.floor(Math.random() * hiragana.length());
+                document.getElementById("hiragana-display").textContent = hiragana[currentChar];
+            }
+
+            function submitForm() {
+                if (document.getElementById("hiragana-input").value == romanizations[currentChar]) {
+                    alert("Correct");
+                    updateChar();
+                    return;
+                }else {
+                    alert("Incorrect");
+                }
+            }
+        </script>
+
         <ul class="navbar">
             <li class="navbar-item">
                 <a class="navbar-link" href="../index.html">Home</a>
@@ -19,7 +74,7 @@
 
         <div class="container">
             <h1>Hiragana Page</h1>
-            <form class="d-flex center" onsubmit="">
+            <form class="d-flex center" onsubmit="submitForm">
                 <div class="full-width">
                     <span class="char-display" id="hiragana-display">a</span>
                 </div>
@@ -29,6 +84,10 @@
                 <div class="full-width">
                     <button type="submit" class="char-submit">Check</button>
                 </div>
+                
+                <script> 
+                    updateChar(); 
+                </script>
             </form>
         </div>
     </body>
