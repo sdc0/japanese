@@ -42,19 +42,51 @@
                 "n"
             ];
 
+            var currentRotation = [...hiragana];
+            var currentRomans = [...romanizations];
+            var currentWrong = [];
+
+            var currentIndex;
             var currentChar;
+            var currentRoman;
 
             function updateChar() {
-                currentChar = Math.floor(Math.random() * hiragana.length);
-                document.getElementById("hiragana-display").textContent = hiragana[currentChar];
+                if (currentRotation.length <= 0 && currentWrong.length != 0) {
+                    currentRotation = [];
+                    currentRomans = [];
+
+                    for (var i = 0; i < currentWrong.length; i++) {
+                        currentRotation.push(currentWrong[i]);
+                        currentRomans.push(romanizations[hiragana.indexOf(currentWrong[i])]);
+                    }
+
+                    currentWrong = [];
+                }else if (currentRotation.length <= 0) {
+                    currentRotation = [...hiragana];
+                    currentRomans = [...romanizations];
+                    currentWrong = [];
+                }
+
+                currentIndex = Math.floor(Math.random() * currentRotation.length);
+                currentChar = currentRotation[currentIndex];
+                currentRoman = currentRomans[currentIndex];
+
+                currentRotation.splice(currentIndex, 1);
+                currentRomans.splice(currentIndex, 1);
+
+                document.getElementById("hiragana-display").textContent = currentChar;
+                document.getElementById("hiragana-input").value = "";
             }
 
             function submitForm() {
-                if (document.getElementById("hiragana-input").value == romanizations[currentChar]) {
+                if (document.getElementById("hiragana-input").value == currentRoman) {
                     console.log("Correct");
                 }else {
-                    console.log("Incorrect");
+                    console.log("Incorrect: ", currentRoman);
+                    currentWrong.push(currentChar);
                 }
+
+                console.log(currentRotation.length);
             }
         </script>
 
