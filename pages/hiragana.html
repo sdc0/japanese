@@ -86,12 +86,14 @@
             <script> 
                 updateChar();
 
-                document.getElementByID("hiragana-form").addEventListener("submit", (e) => {
-                    e.preventDefault();
-
-                    submitForm();
-                    updateChar();
-                })
+                window.onload = () => {
+                    document.getElementByID("hiragana-form").addEventListener("submit", (e) => {
+                        e.preventDefault();
+    
+                        submitForm();
+                        updateChar();
+                    });
+                };
             </script>
         </div>
     </body>
