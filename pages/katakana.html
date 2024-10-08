@@ -5,6 +5,89 @@
         <link rel="stylesheet" href="../styles.css">
     </head>
     <body>
+        <script>
+            const katakana = [
+                "ア", "イ", "ウ", "エ", "オ", 
+                "カ", "キ", "ク", "ケ", "コ",
+                "サ", "シ", "ス", "セ", "ソ",
+                "タ", "チ", "ツ", "テ", "ト",
+                "ナ", "ニ", "ヌ", "ネ", "ノ",
+                "ハ", "ヒ", "フ", "ヘ", "ホ",
+                "マ", "ミ", "ム", "メ", "モ",
+                "ラ", "リ", "ル", "レ", "ロ",
+                "ヤ", "ユ", "ヨ", "ワ", "ヲ",
+                "ガ", "ギ", "グ", "ゲ", "ゴ",
+                "ザ", "ジ", "ズ", "ゼ", "ゾ",
+                "ダ", "ヂ", "ヅ", "デ", "ド",
+                "バ", "ビ", "ブ", "ベ", "ボ",
+                "パ", "ピ", "プ", "ペ", "ポ",
+                "ン"
+            ];
+
+            const romanizations = [
+                "a", "i", "u", "e", "o",
+                "ka", "ki", "ku", "ke", "ko",
+                "sa", "shi", "su", "se", "so",
+                "ta", "chi", "tsu", "te", "to",
+                "na", "ni", "nu", "ne", "no",
+                "ha", "hi", "fu", "he", "ho",
+                "ma", "mi", "mu", "me", "mo",
+                "ra", "ri", "ru", "re", "ro",
+                "ya", "yu", "yo", "wa", "wo", 
+                "ga", "gi", "gu", "ge", "go",
+                "za", "ji", "zu", "ze", "zo",
+                "da", "ji", "zu", "de", "do",
+                "ba", "bi", "bu", "be", "bo",
+                "pa", "pi", "pu", "pe", "po",
+                "n"
+            ];
+
+            var currentRotation = [...katakana];
+            var currentRomans = [...romanizations];
+            var currentWrong = [];
+
+            var currentIndex;
+            var currentChar;
+            var currentRoman;
+
+            function updateChar() {
+                if (currentRotation.length <= 0 && currentWrong.length != 0) {
+                    currentRotation = [];
+                    currentRomans = [];
+
+                    for (var i = 0; i < currentWrong.length; i++) {
+                        currentRotation.push(currentWrong[i]);
+                        currentRomans.push(romanizations[katakana.indexOf(currentWrong[i])]);
+                    }
+
+                    currentWrong = [];
+                }else if (currentRotation.length <= 0) {
+                    currentRotation = [...katakana];
+                    currentRomans = [...romanizations];
+                    currentWrong = [];
+                }
+
+                currentIndex = Math.floor(Math.random() * currentRotation.length);
+                currentChar = currentRotation[currentIndex];
+                currentRoman = currentRomans[currentIndex];
+
+                currentRotation.splice(currentIndex, 1);
+                currentRomans.splice(currentIndex, 1);
+
+                document.getElementById("katakana-display").textContent = currentChar;
+                document.getElementById("katakana-input").value = "";
+            }
+
+            function submitForm() {
+                if (document.getElementById("katakana-input").value == currentRoman) {
+                    console.log("Correct");
+                }else {
+                    console.log("Incorrect: ", currentRoman);
+                    currentWrong.push(currentChar);
+                }
+            }
+        </script>
+
         <ul class="navbar">
             <li class="navbar-item">
                 <a class="navbar-link" href="../index.html">Home</a>
@@ -19,17 +102,26 @@
 
         <div class="container">
             <h1>Katakana Page</h1>
-            <form class="d-flex center" onsubmit="">
+            <form class="d-flex center" id="katakana-form">
                 <div class="full-width">
                     <span class="char-display" id="katakana-display">a</span>
                 </div>
                 <div class="full-width">
-                    <input type="char" class="char-input" id="katakana-input" />
+                    <input type="char" class="char-input" id="katakana-input"/>
                 </div>
                 <div class="full-width">
                     <button type="submit" class="char-submit">Check</button>
                 </div>
             </form>
+            <script> 
+                updateChar();
+
+                document.getElementById("katakana-form").addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    submitForm();
+                    updateChar();
+                });
+            </script>
         </div>
     </body>
 </html>
