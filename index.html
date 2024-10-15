@@ -1,16 +1,100 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Homepage</title>
-        <link rel="stylesheet" href="styles.css">
+        <title>Hiragana</title>
+        <link rel="stylesheet" href="./styles.css">
     </head>
     <body>
+        <script>
+            const hiragana = [
+                "あ", "い", "う", "え", "お", 
+                "か", "き", "く", "け", "こ",
+                "さ", "し", "す", "せ", "そ",
+                "た", "ち", "つ", "て", "と",
+                "な", "に", "ぬ", "ね", "の",
+                "は", "ひ", "ふ", "へ", "ほ",
+                "ま", "み", "む", "め", "も",
+                "ら", "り", "る", "れ", "ろ",
+                "や", "ゆ", "よ", "わ", "を",
+                "が", "ぎ", "ぐ", "げ", "ご",
+                "ざ", "じ", "ず", "ぜ", "ぞ",
+                "だ", "ぢ", "づ", "で", "ど",
+                "ば", "び", "ぶ", "べ", "ぼ",
+                "ぱ", "ぴ", "ぷ", "ぺ", "ぽ",
+                "ん"
+            ];
+
+            const romanizations = [
+                "a", "i", "u", "e", "o",
+                "ka", "ki", "ku", "ke", "ko",
+                "sa", "shi", "su", "se", "so",
+                "ta", "chi", "tsu", "te", "to",
+                "na", "ni", "nu", "ne", "no",
+                "ha", "hi", "fu", "he", "ho",
+                "ma", "mi", "mu", "me", "mo",
+                "ra", "ri", "ru", "re", "ro",
+                "ya", "yu", "yo", "wa", "wo", 
+                "ga", "gi", "gu", "ge", "go",
+                "za", "ji", "zu", "ze", "zo",
+                "da", "ji", "zu", "de", "do",
+                "ba", "bi", "bu", "be", "bo",
+                "pa", "pi", "pu", "pe", "po",
+                "n"
+            ];
+
+            var currentRotation = [...hiragana];
+            var currentRomans = [...romanizations];
+            var currentWrong = [];
+
+            var currentIndex;
+            var currentChar;
+            var currentRoman;
+
+            function updateChar() {
+                if (currentRotation.length <= 0 && currentWrong.length != 0) {
+                    currentRotation = [];
+                    currentRomans = [];
+
+                    for (var i = 0; i < currentWrong.length; i++) {
+                        currentRotation.push(currentWrong[i]);
+                        currentRomans.push(romanizations[hiragana.indexOf(currentWrong[i])]);
+                    }
+
+                    currentWrong = [];
+                }else if (currentRotation.length <= 0) {
+                    currentRotation = [...hiragana];
+                    currentRomans = [...romanizations];
+                    currentWrong = [];
+                }
+
+                currentIndex = Math.floor(Math.random() * currentRotation.length);
+                currentChar = currentRotation[currentIndex];
+                currentRoman = currentRomans[currentIndex];
+
+                currentRotation.splice(currentIndex, 1);
+                currentRomans.splice(currentIndex, 1);
+
+                document.getElementById("hiragana-display").textContent = currentChar;
+                document.getElementById("hiragana-input").value = "";
+            }
+
+            function submitForm() {
+                var correct = (document.getElementById("hiragana-input").value == currentRoman);
+
+                document.getElementById("answer-response").textContent = correct ? "Correct" : "Incorrect: " + currentRoman;
+                document.getElementById("answer-response").style.color = correct ? "green" : "red";
+
+                if (correct) currentWrong.push(currentChar);
+
+                setTimeout(() => {
+                    document.getElementById("answer-response").textContent = "";
+                }, 750);
+            }
+        </script>
+
         <ul class="navbar">
             <li class="navbar-item active">
-                <a class="navbar-link" href="./index.html">Home</a>
-            </li>
-            <li class="navbar-item">
-                <a class="navbar-link" href="./pages/hiragana.html">Hiragana</a>
+                <a class="navbar-link" href="./index.html">Hiragana</a>
             </li>
             <li class="navbar-item">
                 <a class="navbar-link" href="./pages/katakana.html">Katakana</a>
@@ -18,8 +102,30 @@
         </ul>
 
         <div class="container">
-            <h1>Filler header</h1>
-            <p>Filler text</p>
+            <h1>Hiragana Page</h1>
+            <form class="d-flex center" id="hiragana-form">
+                <div class="full-width">
+                    <span class="char-display" id="hiragana-display">a</span>
+                </div>
+                <div class="full-width">
+                    <input type="char" class="char-input" id="hiragana-input"/>
+                </div>
+                <div class="full-width">
+                    <button type="submit" class="char-submit">Check</button>
+                </div>
+                <div class="full-width">
+                    <p id="answer-response"></p>
+                </div>
+            </form>
+            <script> 
+                updateChar();
+
+                document.getElementById("hiragana-form").addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    submitForm();
+                    updateChar();
+                });
+            </script>
         </div>
     </body>
 </html>

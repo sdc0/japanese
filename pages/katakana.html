@@ -79,21 +79,22 @@
             }
 
             function submitForm() {
-                if (document.getElementById("katakana-input").value == currentRoman) {
-                    console.log("Correct");
-                }else {
-                    console.log("Incorrect: ", currentRoman);
-                    currentWrong.push(currentChar);
-                }
+                var correct = (document.getElementById("katakana-input").value == currentRoman);
+
+                document.getElementById("answer-response").textContent = correct ? "Correct" : "Incorrect: " + currentRoman;
+                document.getElementById("answer-response").style.color = correct ? "green" : "red";
+
+                if (correct) currentWrong.push(currentChar);
+
+                setTimeout(() => {
+                    document.getElementById("answer-response").textContent = "";
+                }, 750);
             }
         </script>
 
         <ul class="navbar">
             <li class="navbar-item">
-                <a class="navbar-link" href="../index.html">Home</a>
-            </li>
-            <li class="navbar-item">
-                <a class="navbar-link" href="./hiragana.html">Hiragana</a>
+                <a class="navbar-link" href="../index.html">Hiragana</a>
             </li>
             <li class="navbar-item active">
                 <a class="navbar-link" href="./katakana.html">Katakana</a>
@@ -111,6 +112,9 @@
                 </div>
                 <div class="full-width">
                     <button type="submit" class="char-submit">Check</button>
+                </div>
+                <div class="full-width">
+                    <p id="answer-response"></p>
                 </div>
             </form>
             <script> 
