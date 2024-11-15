@@ -84,7 +84,7 @@
                 document.getElementById("answer-response").textContent = correct ? "Correct" : "Incorrect: " + currentRoman;
                 document.getElementById("answer-response").style.color = correct ? "green" : "red";
 
-                if (correct) currentWrong.push(currentChar);
+                if (!correct) currentWrong.push(currentChar);
 
                 setTimeout(() => {
                     document.getElementById("answer-response").textContent = "";
