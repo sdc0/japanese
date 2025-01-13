@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Kanji</title>
+        <link rel="stylesheet" href="../styles.css">
+    </head>
+    <body>
+        <script>
+            const kanji = [
+                "一", "二", "三", "四", "五", "六", "七", "八","九",
+                "米", "水", "山", "月", "人"
+            ];
+
+            const romanizations = [
+                "ichi", "ni", "san", "yon", "go", "roku", "shichi", "hachi", "kyu", 
+                "gohan", "mizu", "yama", "tsuki", "jin"
+            ];
+
+            const translations = [
+                "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+                "rice", "water", "mountain", "moon", "person"
+            ];
+
+            var currentRotation = [...kanji];
+            var currentTargets = [...romanizations];
+            var currentWrong = [];
+
+            var targetTranslations = false;
+
+            var currentIndex;
+            var currentChar;
+            var currentTarget;
+
+            function updateChar() {
+                if (currentRotation.length <= 0 && currentWrong.length != 0) {
+                    currentRotation = [];
+                    currentTargets = [];
+
+                    for (var i = 0; i < currentWrong.length; i++) {
+                        currentRotation.push(currentWrong[i]);
+                        currentTargets.push(targetTranslations ? translations[kanji.indexOf(currentWrong[i])] : romanizations[kanji.indexOf(currentWrong[i])]);
+                    }
+
+                    currentWrong = [];
+                }else if (currentRotation.length <= 0) {
+                    currentRotation = [...kanji];
+                    currentTargets = targetTranslations ? [...translations] : [...romanizations];
+                    currentWrong = [];
+                }
+
+                currentIndex = Math.floor(Math.random() * currentRotation.length);
+                currentChar = currentRotation[currentIndex];
+                currentTarget = currentTargets[currentIndex];
+
+                currentRotation.splice(currentIndex, 1);
+                currentTargets.splice(currentIndex, 1);
+
+                document.getElementById("kanji-display").textContent = currentChar;
+                document.getElementById("kanji-input").value = "";
+            }
+
+            function submitForm() {
+                var correct = (document.getElementById("kanji-input").value == currentTarget);
+
+                document.getElementById("answer-response").textContent = correct ? "Correct" : "Incorrect: " + currentTarget;
+                document.getElementById("answer-response").style.color = correct ? "green" : "red";
+
+                if (!correct) currentWrong.push(currentChar);
+
+                setTimeout(() => {
+                    document.getElementById("answer-response").textContent = "";
+                }, 750);
+            }
+
+            function resetForm() {
+                currentRotation = [...kanji];
+                currentTargets = targetTranslations ? [...translations] : [...romanizations];
+                currentWrong = [];
+
+                updateChar();
+            }
+        </script>
+
+        <ul class="navbar">
+            <li class="navbar-item">
+                <a class="navbar-link" href="../index.html">Hiragana</a>
+            </li>
+            <li class="navbar-item">
+                <a class="navbar-link" href="./katakana.html">Katakana</a>
+            </li>
+            <li class="navbar-item active">
+                <a class="navbar-link" href="./kanji.html">Kanji</a>
+            </li>
+        </ul>
+
+        <div class="container">
+            <h1>Hiragana Page</h1>
+            <form class="d-flex center" id="kanji-form">
+                <div class="full-width">
+                    <span class="char-display" id="kanji-display">a</span>
+                </div>
+                <div class="full-width">
+                    <input type="char" class="char-input" id="kanji-input" autocomplete="off" autocapitalize="off"/>
+                </div>
+                <div class="full-width">
+                    <button id="switch-button">Switch to Translations</button>
+                </div>
+                <div class="full-width">
+                    <button type="submit" class="char-submit">Check</button>
+                </div>
+                <div class="full-width">
+                    <p id="answer-response"></p>
+                </div>
+            </form>
+            <script> 
+                updateChar();
+
+                document.getElementById("kanji-form").addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    submitForm();
+                    updateChar();
+                });
+
+                document.getElementById("switch-button").addEventListener("click", (e) => {
+                    e.preventDefault();
+                    targetTranslations = !targetTranslations;
+                    document.getElementById("switch-button").textContent = `Switch to ${targetTranslations ? "Romanizations" : "Translations"}`;
+                    resetForm();
+                });
+            </script>
+        </div>
+    </body>
+</html>
