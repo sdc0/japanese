@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Hiragana</title>
+        <title>Home</title>
         <link rel="stylesheet" href="./styles.css">
     </head>
     <body>
@@ -15,7 +15,8 @@
                 "は", "ひ", "ふ", "へ", "ほ",
                 "ま", "み", "む", "め", "も",
                 "ら", "り", "る", "れ", "ろ",
-                "や", "ゆ", "よ", "わ", "を",
+                "や", " ", "ゆ", " ", "よ", 
+                "わ", " ", " ", " ", "を",
                 "が", "ぎ", "ぐ", "げ", "ご",
                 "ざ", "じ", "ず", "ぜ", "ぞ",
                 "だ", "ぢ", "づ", "で", "ど",
@@ -24,7 +25,26 @@
                 "ん"
             ];
 
-            const romanizations = [
+            const katakana = [
+                "ア", "イ", "ウ", "エ", "オ", 
+                "カ", "キ", "ク", "ケ", "コ",
+                "サ", "シ", "ス", "セ", "ソ",
+                "タ", "チ", "ツ", "テ", "ト",
+                "ナ", "ニ", "ヌ", "ネ", "ノ",
+                "ハ", "ヒ", "フ", "ヘ", "ホ",
+                "マ", "ミ", "ム", "メ", "モ",
+                "ラ", "リ", "ル", "レ", "ロ",
+                "ヤ", " ", "ユ", " ", "ヨ", 
+                "ワ", " ", " ", " ", "ヲ",
+                "ガ", "ギ", "グ", "ゲ", "ゴ",
+                "ザ", "ジ", "ズ", "ゼ", "ゾ",
+                "ダ", "ヂ", "ヅ", "デ", "ド",
+                "バ", "ビ", "ブ", "ベ", "ボ",
+                "パ", "ピ", "プ", "ペ", "ポ",
+                "ン"
+            ];
+
+            const script_romanizations = [
                 "a", "i", "u", "e", "o",
                 "ka", "ki", "ku", "ke", "ko",
                 "sa", "shi", "su", "se", "so",
@@ -33,7 +53,8 @@
                 "ha", "hi", "fu", "he", "ho",
                 "ma", "mi", "mu", "me", "mo",
                 "ra", "ri", "ru", "re", "ro",
-                "ya", "yu", "yo", "wa", "wo", 
+                "ya", "yi", "yu", "ye", "yo", 
+                "wa", "wi", "wu", "we", "wo", 
                 "ga", "gi", "gu", "ge", "go",
                 "za", "ji", "zu", "ze", "zo",
                 "da", "ji", "zu", "de", "do",
@@ -42,59 +63,28 @@
                 "n"
             ];
 
-            var currentRotation = [...hiragana];
-            var currentRomans = [...romanizations];
-            var currentWrong = [];
+            const kanji = [
+                "一", "二", "三", "四", "五", "六", "七", "八","九",
+                "米", "水", "山", "月", "人"
+            ];
 
-            var currentIndex;
-            var currentChar;
-            var currentRoman;
+            const kanji_romanizations = [
+                "ichi", "ni", "san", "yon", "go", "roku", "shichi", "hachi", "kyu", 
+                "gohan", "mizu", "yama", "tsuki", "jin"
+            ];
 
-            function updateChar() {
-                if (currentRotation.length <= 0 && currentWrong.length != 0) {
-                    currentRotation = [];
-                    currentRomans = [];
-
-                    for (var i = 0; i < currentWrong.length; i++) {
-                        currentRotation.push(currentWrong[i]);
-                        currentRomans.push(romanizations[hiragana.indexOf(currentWrong[i])]);
-                    }
-
-                    currentWrong = [];
-                }else if (currentRotation.length <= 0) {
-                    currentRotation = [...hiragana];
-                    currentRomans = [...romanizations];
-                    currentWrong = [];
-                }
-
-                currentIndex = Math.floor(Math.random() * currentRotation.length);
-                currentChar = currentRotation[currentIndex];
-                currentRoman = currentRomans[currentIndex];
-
-                currentRotation.splice(currentIndex, 1);
-                currentRomans.splice(currentIndex, 1);
-
-                document.getElementById("hiragana-display").textContent = currentChar;
-                document.getElementById("hiragana-input").value = "";
-            }
-
-            function submitForm() {
-                var correct = (document.getElementById("hiragana-input").value == currentRoman);
-
-                document.getElementById("answer-response").textContent = correct ? "Correct" : "Incorrect: " + currentRoman;
-                document.getElementById("answer-response").style.color = correct ? "green" : "red";
-
-                if (!correct) currentWrong.push(currentChar);
-
-                setTimeout(() => {
-                    document.getElementById("answer-response").textContent = "";
-                }, 750);
-            }
+            const kanji_translations = [
+                "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+                "rice", "water", "mountain", "moon", "person"
+            ];
         </script>
 
         <ul class="navbar">
             <li class="navbar-item active">
-                <a class="navbar-link" href="./index.html">Hiragana</a>
+                <a class="navbar-link" href="./index.html">Home</a>
+            </li>
+            <li class="navbar-item">
+                <a class="navbar-link" href="./pages/hiragana.html">Hiragana</a>
             </li>
             <li class="navbar-item">
                 <a class="navbar-link" href="./pages/katakana.html">Katakana</a>
@@ -104,31 +94,135 @@
             </li>
         </ul>
 
-        <div class="container">
-            <h1>Hiragana Page</h1>
-            <form class="d-flex center" id="hiragana-form">
-                <div class="full-width">
-                    <span class="char-display" id="hiragana-display">a</span>
-                </div>
-                <div class="full-width">
-                    <input type="char" class="char-input" id="hiragana-input" autocomplete="off" autocapitalize="off"/>
-                </div>
-                <div class="full-width">
-                    <button type="submit" class="char-submit">Check</button>
-                </div>
-                <div class="full-width">
-                    <p id="answer-response"></p>
-                </div>
-            </form>
-            <script> 
-                updateChar();
+        <div class="container center">
+            <div id="hiragana-table" style="margin: 2vh 2vw 2vh 0;">
 
-                document.getElementById("hiragana-form").addEventListener("submit", (e) => {
-                    e.preventDefault();
-                    submitForm();
-                    updateChar();
-                });
-            </script>
+            </div>
+            <div id="katakana-table" style="margin: 2vh 0 2vh 2vw;">
+
+            </div>
+            <div id="kanji-table" class="full-width center" style="margin-top: 2vh;">
+
+            </div>
         </div>
+
+        <script>
+            var table = document.createElement("table");
+            var row = document.createElement("tr");
+            var element = document.createElement("th");
+
+            element.innerText = " ";
+            element.style = "padding: 4px;";
+            row.appendChild(element);
+            
+            for (let i = 0; i < script_romanizations.length - 1; i += 5) {
+                element = document.createElement("th");
+                element.style = "border-left: 1px solid black; padding: 4px;";
+                element.innerText = (script_romanizations[i].length > 1) ? script_romanizations[i][0] : " ";
+                row.appendChild(element);
+            }
+
+            table.appendChild(row);
+
+            for (let i = 0; i < 5; i++) {
+                row = document.createElement("tr");
+                element = document.createElement("th");
+                element.style = "border-top: 1px solid black; padding: 4px;";
+
+                element.innerText = script_romanizations[i];
+                row.appendChild(element);
+
+                for (let j = i; j < hiragana.length - 1; j += 5) {
+                    element = document.createElement("td");
+                    element.style = "border-top: 1px solid black; border-left: 1px solid black; padding: 4px;";
+                    element.innerText = hiragana[j];
+                    row.appendChild(element);
+                }
+
+                table.appendChild(row);
+            }
+            
+            document.getElementById("hiragana-table").appendChild(table);
+
+            table = document.createElement("table");
+            row = document.createElement("tr");
+            element = document.createElement("th");
+
+            element.innerText = " ";
+            element.style = "padding: 4px;";
+            row.appendChild(element);
+            
+            for (let i = 0; i < script_romanizations.length - 1; i += 5) {
+                element = document.createElement("th");
+                element.style = "border-left: 1px solid black; padding: 4px;";
+                element.innerText = (script_romanizations[i].length > 1) ? script_romanizations[i][0] : " ";
+                row.appendChild(element);
+            }
+
+            table.appendChild(row);
+
+            for (let i = 0; i < 5; i++) {
+                row = document.createElement("tr");
+                element = document.createElement("th");
+                element.style = "border-top: 1px solid black; padding: 4px;";
+
+                element.innerText = script_romanizations[i];
+                row.appendChild(element);
+
+                for (let j = i; j < katakana.length - 1; j += 5) {
+                    element = document.createElement("td");
+                    element.style = "border-top: 1px solid black; border-left: 1px solid black; padding: 4px;";
+                    element.innerText = katakana[j];
+                    row.appendChild(element);
+                }
+
+                table.appendChild(row);
+            }
+            
+            document.getElementById("katakana-table").appendChild(table);
+
+            table = document.createElement("table");
+            row = document.createElement("tr");
+
+            element = document.createElement("th");
+            element.innerText = "Kanji";
+            element.style = "padding: 4px;";
+            row.appendChild(element);
+
+            element = document.createElement("th");
+            element.innerText = "Romaji";
+            element.style = "padding: 4px; border-left: 1px solid black;";
+            row.appendChild(element);
+
+            element = document.createElement("th");
+            element.innerText = "Translation";
+            element.style = "padding: 4px; border-left: 1px solid black;";
+            row.appendChild(element);
+
+            table.appendChild(row);
+
+            for (let i = 0; i < kanji.length; i++) {
+                row = document.createElement("tr");
+
+                element = document.createElement("td");
+                element.innerText = kanji[i];
+                element.style = "padding: 4px; border-top: 1px solid black;";
+                row.appendChild(element);
+
+                element = document.createElement("td");
+                element.innerText = kanji_romanizations[i];
+                element.style = "padding: 4px; border-left: 1px solid black; border-top: 1px solid black;";
+                row.appendChild(element);
+
+                element = document.createElement("td");
+                element.innerText = kanji_translations[i];
+                element.style = "padding: 4px; border-left: 1px solid black; border-top: 1px solid black;";
+                row.appendChild(element);
+
+                table.appendChild(row);
+            }
+
+            document.getElementById("kanji-table").appendChild(table);
+        </script>
     </body>
 </html>

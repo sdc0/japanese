@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Katakana</title>
+        <title>Hiragana</title>
         <link rel="stylesheet" href="../styles.css">
     </head>
     <body>
         <script>
-            const katakana = [
-                "ア", "イ", "ウ", "エ", "オ", 
-                "カ", "キ", "ク", "ケ", "コ",
-                "サ", "シ", "ス", "セ", "ソ",
-                "タ", "チ", "ツ", "テ", "ト",
-                "ナ", "ニ", "ヌ", "ネ", "ノ",
-                "ハ", "ヒ", "フ", "ヘ", "ホ",
-                "マ", "ミ", "ム", "メ", "モ",
-                "ラ", "リ", "ル", "レ", "ロ",
-                "ヤ", "ユ", "ヨ", "ワ", "ヲ",
-                "ガ", "ギ", "グ", "ゲ", "ゴ",
-                "ザ", "ジ", "ズ", "ゼ", "ゾ",
-                "ダ", "ヂ", "ヅ", "デ", "ド",
-                "バ", "ビ", "ブ", "ベ", "ボ",
-                "パ", "ピ", "プ", "ペ", "ポ",
-                "ン"
+            const hiragana = [
+                "あ", "い", "う", "え", "お", 
+                "か", "き", "く", "け", "こ",
+                "さ", "し", "す", "せ", "そ",
+                "た", "ち", "つ", "て", "と",
+                "な", "に", "ぬ", "ね", "の",
+                "は", "ひ", "ふ", "へ", "ほ",
+                "ま", "み", "む", "め", "も",
+                "ら", "り", "る", "れ", "ろ",
+                "や", "ゆ", "よ", "わ", "を",
+                "が", "ぎ", "ぐ", "げ", "ご",
+                "ざ", "じ", "ず", "ぜ", "ぞ",
+                "だ", "ぢ", "づ", "で", "ど",
+                "ば", "び", "ぶ", "べ", "ぼ",
+                "ぱ", "ぴ", "ぷ", "ぺ", "ぽ",
+                "ん"
             ];
 
             const romanizations = [
@@ -42,7 +42,7 @@
                 "n"
             ];
 
-            var currentRotation = [...katakana];
+            var currentRotation = [...hiragana];
             var currentRomans = [...romanizations];
             var currentWrong = [];
 
@@ -57,12 +57,12 @@
 
                     for (var i = 0; i < currentWrong.length; i++) {
                         currentRotation.push(currentWrong[i]);
-                        currentRomans.push(romanizations[katakana.indexOf(currentWrong[i])]);
+                        currentRomans.push(romanizations[hiragana.indexOf(currentWrong[i])]);
                     }
 
                     currentWrong = [];
                 }else if (currentRotation.length <= 0) {
-                    currentRotation = [...katakana];
+                    currentRotation = [...hiragana];
                     currentRomans = [...romanizations];
                     currentWrong = [];
                 }
@@ -74,12 +74,12 @@
                 currentRotation.splice(currentIndex, 1);
                 currentRomans.splice(currentIndex, 1);
 
-                document.getElementById("katakana-display").textContent = currentChar;
-                document.getElementById("katakana-input").value = "";
+                document.getElementById("hiragana-display").textContent = currentChar;
+                document.getElementById("hiragana-input").value = "";
             }
 
             function submitForm() {
-                var correct = (document.getElementById("katakana-input").value == currentRoman);
+                var correct = (document.getElementById("hiragana-input").value == currentRoman);
 
                 document.getElementById("answer-response").textContent = correct ? "Correct" : "Incorrect: " + currentRoman;
                 document.getElementById("answer-response").style.color = correct ? "green" : "red";
@@ -96,10 +96,10 @@
             <li class="navbar-item">
                 <a class="navbar-link" href="../index.html">Home</a>
             </li>
-            <li class="navbar-item">
+            <li class="navbar-item active">
                 <a class="navbar-link" href="./hiragana.html">Hiragana</a>
             </li>
-            <li class="navbar-item active">
+            <li class="navbar-item">
                 <a class="navbar-link" href="./katakana.html">Katakana</a>
             </li>
             <li class="navbar-item">
@@ -108,13 +108,13 @@
         </ul>
 
         <div class="container center">
-            <h1>Katakana Page</h1>
-            <form class="d-flex center" id="katakana-form" autocapitalize="off" autocomplete="off" autocorrect="off" >
+            <h1>Hiragana Page</h1>
+            <form class="d-flex center" id="hiragana-form" autocapitalize="off" autocomplete="off" autocorrect="off" >
                 <div class="full-width">
-                    <span class="char-display" id="katakana-display">a</span>
+                    <span class="char-display" id="hiragana-display">a</span>
                 </div>
                 <div class="full-width">
-                    <input type="char" class="char-input" id="katakana-input" autocapitalize="off" autocomplete="off" autocorrect="off" />
+                    <input type="char" class="char-input" id="hiragana-input" autocapitalize="off" autocomplete="off" autocorrect="off" />
                 </div>
                 <div class="full-width">
                     <button type="submit" class="char-submit">Check</button>
@@ -126,7 +126,7 @@
             <script> 
                 updateChar();
 
-                document.getElementById("katakana-form").addEventListener("submit", (e) => {
+                document.getElementById("hiragana-form").addEventListener("submit", (e) => {
                     e.preventDefault();
                     submitForm();
                     updateChar();

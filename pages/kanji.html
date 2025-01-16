@@ -83,7 +83,10 @@
 
         <ul class="navbar">
             <li class="navbar-item">
-                <a class="navbar-link" href="../index.html">Hiragana</a>
+                <a class="navbar-link" href="../index.html">Home</a>
+            </li>
+            <li class="navbar-item">
+                <a class="navbar-link" href="./hiragana.html">Hiragana</a>
             </li>
             <li class="navbar-item">
                 <a class="navbar-link" href="./katakana.html">Katakana</a>
@@ -93,14 +96,14 @@
             </li>
         </ul>
 
-        <div class="container">
-            <h1>Hiragana Page</h1>
-            <form class="d-flex center" id="kanji-form">
+        <div class="container center">
+            <h1>Kanji Page</h1>
+            <form class="d-flex center" id="kanji-form" autocapitalize="off" autocomplete="off" autocorrect="off" >
                 <div class="full-width">
                     <span class="char-display" id="kanji-display">a</span>
                 </div>
                 <div class="full-width">
-                    <input type="char" class="char-input" id="kanji-input" autocomplete="off" autocapitalize="off"/>
+                    <input type="char" class="char-input" id="kanji-input" autocapitalize="off" autocomplete="off" autocorrect="off" />
                 </div>
                 <div class="full-width">
                     <button type="submit" class="char-submit">Check</button>
@@ -109,9 +112,7 @@
                     <p id="answer-response"></p>
                 </div>
             </form>
-            <div class="full-width center">
-                <button id="switch-button">Switch to Translations</button>
-            </div>
+            <button id="switch-button">Switch to Translations</button>
             <script> 
                 updateChar();
 
